@@ -1,0 +1,95 @@
+{% extends "layouts/main.html" %}
+
+{% block title %}
+    <title>Weather | Home</title>
+{% endblock title %}
+
+{% block content %}
+    <style>
+        body {
+            background: url('https://res.cloudinary.com/dl2hcx3sr/image/upload/v1738936461/23283_qnxd9o.jpg') no-repeat center center/cover;
+            height: 100vh;
+        }
+       
+        input::placeholder {
+            color: rgba(255, 255, 255, 0.8);
+        }
+        .weather-icon {
+            width: 50px;
+            height: 50px;
+        }
+    </style>
+
+    <div class="container d-flex justify-content-center align-items-center" style="height: 100vh;">
+        <div class="col-lg-6 col-md-8 col-sm-10">
+            <!-- Title -->
+            <div class="text-center mb-4">
+                <h1 class="fw-bold text-white">Weather App<img src="https://res.cloudinary.com/dl2hcx3sr/image/upload/v1738982114/cloudy_kw47ee.png" class="weather-icon pb-3 ps-2" alt="Weather Icon"
+                    style="width: 80px; height: 80px;" /></h1>
+            </div>
+
+            <!-- Search Bar -->
+            <form method="get" class="text-center">
+                <input type="text" name="city" required placeholder="Enter a city" class="form-control border-0 text-dark mb-2"/>
+                <button type="submit" class="btn btn-warning">Search</button>
+            </form>
+
+            {% if weather_data %}
+                <!-- Weather Card -->
+                <div class="card glass-card text-center mt-3">
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <!-- Temperature and Location Details -->
+                            <div class="col-md-7 pe-4 text-start">
+                                <h2 class="display-4"><img src="https://res.cloudinary.com/dl2hcx3sr/image/upload/v1738979894/temperature_azrxf8.png" class="weather-icon  mb-2 me-3" alt="Pressure Icon">{{ weather_data.temperature }}°C</h2>
+                                <p class="text-dark-50">Now</p>
+                                <h4 class="fw-bold">{{ weather_data.city }}, {{ weather_data.country }}</h4>
+                                <h6 class="fw-bold"><img src="https://res.cloudinary.com/dl2hcx3sr/image/upload/v1738982115/latitude_frp4zz.png" class="weather-icon  me-2" alt="Weather Icon"
+                                    style="width: 20px; height: 20px;" />Longitude: {{ weather_data.lon }}</h6>
+                                <h6 class="fw-bold"><img src="https://res.cloudinary.com/dl2hcx3sr/image/upload/v1738982114/location_o5hq0u.png" class="weather-icon me-2" alt="Weather Icon"
+                                    style="width: 20px; height: 20px;" />Latitude: {{ weather_data.lat }}</h6>
+                            </div>
+                            <!-- Weather Icon -->
+                            <div class="col-md-5 text-center">
+                                <img src="{{ weather_data.icon_url }}" class="weather-icon" alt="Weather Icon"
+                                style="width: 150px; height: 150px;" />
+                                <h4>{{weather_data.weather}}</h4>
+
+                            
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+
+                <!-- Weather Details -->
+                <div class="row mt-4">
+                    <div class="col-md-4 mb-3">
+                        <div class="card glass-card p-3 text-center">
+                            <h5>Humidity</h5>
+                            <img src="https://res.cloudinary.com/dl2hcx3sr/image/upload/v1738979894/humidity_raxk5f.png" class="weather-icon mt-2 mb-2 ms-auto me-auto" alt="Humidity Icon">
+                            <p>{{ weather_data.humidity }}%</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <div class="card glass-card p-3 text-center">
+                            <h5>Wind</h5>
+                            <img src="https://res.cloudinary.com/dl2hcx3sr/image/upload/v1738982586/storm_gzrujy.png" class="weather-icon mt-2 mb-2 ms-auto me-auto" alt="Pressure Icon">
+                            <p>{{ weather_data.wind_speed}}m/s</p>
+                        </div>
+                    </div>
+                   
+                    <div class="col-md-4 mb-3">
+                        <div class="card glass-card p-3 text-center">
+                            <h5>Pressure</h5>
+                            <img src="https://res.cloudinary.com/dl2hcx3sr/image/upload/v1738979894/temperature_azrxf8.png" class="weather-icon mt-2 mb-2 ms-auto me-auto" alt="Pressure Icon">
+                            <p>{{ weather_data.pressure }} hpa</p>
+                        </div>
+                    </div>
+                   
+                </div>
+            {% endif %}
+
+        </div>
+    </div>
+{% endblock content %}
